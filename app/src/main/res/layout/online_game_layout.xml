@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/statusTextViewOnline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/gridLayoutOnline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gridLayoutOnline"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:background="@drawable/tic_tac_toe_grid"
+        android:columnCount="3"
+        android:rowCount="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView1Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="1" />
+
+        <ImageView
+            android:id="@+id/imageView2Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="2" />
+
+        <ImageView
+            android:id="@+id/imageView3Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="3" />
+
+        <ImageView
+            android:id="@+id/imageView4Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="4" />
+
+        <ImageView
+            android:id="@+id/imageView5Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="5" />
+
+        <ImageView
+            android:id="@+id/imageView6Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="6" />
+
+        <ImageView
+            android:id="@+id/imageView7Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="7" />
+
+        <ImageView
+            android:id="@+id/imageView8Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="8" />
+
+        <ImageView
+            android:id="@+id/imageView9Online"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="22dp"
+            android:onClick="clickedBoxOnline"
+            android:tag="9" />
+
+
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

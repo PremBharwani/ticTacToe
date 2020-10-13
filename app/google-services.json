@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "317760122514",
+    "firebase_url": "https://merpfirebasetest.firebaseio.com",
+    "project_id": "merpfirebasetest",
+    "storage_bucket": "merpfirebasetest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317760122514:android:3e0cf04b60adb7aded004b",
+        "android_client_info": {
+          "package_name": "com.merp.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317760122514-7m186bjq4mdsksv3gf9n6n1aibbfq6av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC5TSTD4BgEGxKkwya1jp7wYpy3ArQtkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317760122514-7m186bjq4mdsksv3gf9n6n1aibbfq6av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317760122514:android:8d259743c98c4727ed004b",
+        "android_client_info": {
+          "package_name": "com.merp.tictactoe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317760122514-7m186bjq4mdsksv3gf9n6n1aibbfq6av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC5TSTD4BgEGxKkwya1jp7wYpy3ArQtkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317760122514-7m186bjq4mdsksv3gf9n6n1aibbfq6av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
