@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
@@ -24,6 +26,13 @@ public class LoginScreenActivity extends AppCompatActivity {
     Context mContext;
     EditText email, pass;
     private FirebaseAuth mAuth;
+
+    private DatabaseReference b1, b2, b3, b4, b5, b6, b7, b8, b9;
+    private DatabaseReference playerTurnRef;
+    private DatabaseReference chanceLeft;
+    private DatabaseReference winr;
+    private DatabaseReference gOver;
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +53,22 @@ public class LoginScreenActivity extends AppCompatActivity {
         if (user != null) { //if the user is already signed in , allowing him to directly go to the game screen
             Log.i(TAG, "in login activity : FirebaseUser object is NOT null , so we're skipping login");
             startActivity(new Intent(mContext, OnlineGameActivity.class));
+
+            db = FirebaseDatabase.getInstance();
+            b1 = db.getReference("/BoxStatus/1");
+            b2 = db.getReference("/BoxStatus/2");
+            b3 = db.getReference("/BoxStatus/3");
+            b4 = db.getReference("/BoxStatus/4");
+            b5 = db.getReference("/BoxStatus/5");
+            b6 = db.getReference("/BoxStatus/6");
+            b7 = db.getReference("/BoxStatus/7");
+            b8 = db.getReference("/BoxStatus/8");
+            b9 = db.getReference("/BoxStatus/9");
+            playerTurnRef = db.getReference("/whichPlayersTurn");
+            chanceLeft = db.getReference("/chancesLeft");
+            gOver = db.getReference("/gameOver");
+            winr = db.getReference("/winner");
+
             resetFirebaseData();
         }
     }
@@ -75,7 +100,19 @@ public class LoginScreenActivity extends AppCompatActivity {
         //if not already resetted , reset all the values and mark that it is reseted on the db
         Log.i(TAG, "resetFirebaseData: inside the resetDatabase method , well reset the database");
 
-
+        b1.setValue(-1);
+        b2.setValue(-1);
+        b3.setValue(-1);
+        b4.setValue(-1);
+        b5.setValue(-1);
+        b6.setValue(-1);
+        b7.setValue(-1);
+        b8.setValue(-1);
+        b9.setValue(-1);
+        playerTurnRef.setValue(1);
+        chanceLeft.setValue(9);
+        gOver.setValue(false);
+        winr.setValue(-1);
     }
 
 }
