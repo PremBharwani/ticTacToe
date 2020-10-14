@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OnlineGameActivity extends AppCompatActivity {
 
+    private int[] boxStatusLocal = {-1, -1, -1, -1, -1, -1, -1, -1, -1};  //this is being maintained to check if a player won
+    private int gameWinner = -1;//storing locally and then we'll use this to declare the winner or declare draw
+    private boolean hasAWinner = false;
+
     private static final String TAG = "premDebug";
     Context mContext;
     int playerId = -1;
@@ -38,6 +42,7 @@ public class OnlineGameActivity extends AppCompatActivity {
     private DatabaseReference winnerRef;
     private DatabaseReference chancesLeftRef;
     private DatabaseReference trialDataBaseRef;
+
     ImageView i1;
     ImageView i2;
     ImageView i3;
@@ -130,17 +135,24 @@ public class OnlineGameActivity extends AppCompatActivity {
             //
 
             //these will look for the change and if theres any update the ui
+            //also when we're calling checKWin function , i used hasPlayersTurn to true always bc i hadnt initialsed it ,
+            //so check how to solve that , only then will we know whos the winner , otherwise no
             bStatus1.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[0] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[0] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(1, true)) {
+                        endGame();
                     }
                 }
 
@@ -154,11 +166,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[1] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i2.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[1] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i2.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(2, true)) {
+                        endGame();
                     }
                 }
 
@@ -172,11 +189,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[2] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i3.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[2] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i3.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(3, true)) {
+                        endGame();
                     }
                 }
 
@@ -190,11 +212,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[3] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i4.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[3] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i4.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(4, true)) {
+                        endGame();
                     }
                 }
 
@@ -208,11 +235,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[4] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i5.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[4] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i5.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(5, true)) {
+                        endGame();
                     }
                 }
 
@@ -226,11 +258,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[5] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i6.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[5] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i6.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(6, true)) {
+                        endGame();
                     }
                 }
 
@@ -244,11 +281,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[6] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i7.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[6] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i7.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(7, true)) {
+                        endGame();
                     }
                 }
 
@@ -262,11 +304,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[7] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i8.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[7] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i8.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(8, true)) {
+                        endGame();
                     }
                 }
 
@@ -280,11 +327,16 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
+                        boxStatusLocal[8] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i9.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
+                        boxStatusLocal[8] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i9.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                    }
+                    if (checkWin(9, true)) {
+                        endGame();
                     }
                 }
 
@@ -387,6 +439,98 @@ public class OnlineGameActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    //below is copied from inGameActivity , might have errs
+    boolean checkWin(int boxChanged, boolean playerOnesTurn) {
+
+        int winningMaterial = -1; // winning material is just the value that should be found in boxStatus i.e either x or o
+        int player = -1; // 1:player one(x)    2:player two(o)
+        if (playerId == 1) {
+            winningMaterial = 1;
+            player = 1;
+        } else if (playerId == 2) {
+            winningMaterial = 2;
+            player = 2;
+        }
+
+        //check rows
+        if (boxChanged == 1 || boxChanged == 2 || boxChanged == 3) {
+            //check first row
+            if (boxStatusLocal[0] == winningMaterial && boxStatusLocal[1] == winningMaterial && boxStatusLocal[2] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        } else if (boxChanged == 4 || boxChanged == 5 || boxChanged == 6) {
+            //check second row
+            if (boxStatusLocal[3] == winningMaterial && boxStatusLocal[4] == winningMaterial && boxStatusLocal[5] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        } else if (boxChanged == 7 || boxChanged == 8 || boxChanged == 9) {
+            //check third row
+            if (boxStatusLocal[6] == winningMaterial && boxStatusLocal[7] == winningMaterial && boxStatusLocal[8] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        }
+        //check columns
+        if (boxChanged == 1 || boxChanged == 4 || boxChanged == 7) {
+            //check first column
+            if (boxStatusLocal[0] == winningMaterial && boxStatusLocal[3] == winningMaterial && boxStatusLocal[6] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        } else if (boxChanged == 2 || boxChanged == 5 || boxChanged == 8) {
+            //check second column
+            if (boxStatusLocal[1] == winningMaterial && boxStatusLocal[4] == winningMaterial && boxStatusLocal[7] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        } else if (boxChanged == 3 || boxChanged == 6 || boxChanged == 9) {
+            //check third column
+            if (boxStatusLocal[2] == winningMaterial && boxStatusLocal[5] == winningMaterial && boxStatusLocal[8] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        }
+
+        //if it lies on diagonal check the diagonal/(s)
+
+        //main diagonal
+        if (boxChanged == 1 || boxChanged == 5 || boxChanged == 9) {
+            if (boxStatusLocal[0] == winningMaterial && boxStatusLocal[4] == winningMaterial && boxStatusLocal[8] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        }
+        //second diagonal
+        if (boxChanged == 7 || boxChanged == 5 || boxChanged == 3) {
+            if (boxStatusLocal[6] == winningMaterial && boxStatusLocal[4] == winningMaterial && boxStatusLocal[2] == winningMaterial) {/*player won*/
+                gameWinner = player;
+                hasAWinner = true;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void endGame() {
+        if (hasAWinner) {
+            Log.i(TAG, "endGame: has a winner ");
+            Toast.makeText(this, "Game Over !", Toast.LENGTH_LONG);
+        } else {
+            Log.i(TAG, "endGame: its a draw");
+        }
     }
 
 
