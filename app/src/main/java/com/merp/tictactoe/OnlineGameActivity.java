@@ -25,6 +25,7 @@ public class OnlineGameActivity extends AppCompatActivity {
     private int[] boxStatusLocal = {-1, -1, -1, -1, -1, -1, -1, -1, -1};  //this is being maintained to check if a player won
     private int gameWinner = -1;//storing locally and then we'll use this to declare the winner or declare draw
     private boolean hasAWinner = false;
+    private boolean playerOnesTurn = true;
 
     private static final String TAG = "premDebug";
     Context mContext;
@@ -135,7 +136,7 @@ public class OnlineGameActivity extends AppCompatActivity {
             //
 
             //these will look for the change and if theres any update the ui
-            //also when we're calling checKWin function , i used hasPlayersTurn to true always bc i hadnt initialsed it ,
+            //also when we're calling checKWin function , i used playerOnesTurn to true always bc i hadnt initialsed it ,
             //so check how to solve that , only then will we know whos the winner , otherwise no
             bStatus1.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -151,7 +152,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(1, true)) {
+                    if (checkWin(1, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -174,7 +175,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i2.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(2, true)) {
+                    if (checkWin(2, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -197,7 +198,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i3.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(3, true)) {
+                    if (checkWin(3, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -220,7 +221,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i4.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(4, true)) {
+                    if (checkWin(4, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -243,7 +244,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i5.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(5, true)) {
+                    if (checkWin(5, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -266,7 +267,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i6.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(6, true)) {
+                    if (checkWin(6, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -289,7 +290,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i7.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(7, true)) {
+                    if (checkWin(7, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -312,7 +313,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i8.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(8, true)) {
+                    if (checkWin(8, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -335,7 +336,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                         Log.i(TAG, "onDataChange: change image to O");
                         i9.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
                     }
-                    if (checkWin(9, true)) {
+                    if (checkWin(9, playerOnesTurn)) {
                         endGame();
                     }
                 }
@@ -378,6 +379,13 @@ public class OnlineGameActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 thisPlayersTurn = Integer.parseInt(snapshot.getValue().toString());
+
+                if (thisPlayersTurn == 1) {
+                    playerOnesTurn = true;
+                } else {
+                    playerOnesTurn = false;
+                }
+
                 gotThisPlayersTurn = true;
                 Log.i(TAG, "onCancelled: thisPlayersTurn set to " + thisPlayersTurn);
 
@@ -526,8 +534,8 @@ public class OnlineGameActivity extends AppCompatActivity {
 
     public void endGame() {
         if (hasAWinner) {
-            Log.i(TAG, "endGame: has a winner ");
-            Toast.makeText(this, "Game Over !", Toast.LENGTH_LONG);
+            Log.i(TAG, "endGame: Player " + thisPlayersTurn + " WINS!");
+            Toast.makeText(this, "Game Over ! Player " + thisPlayersTurn + " WINS!", Toast.LENGTH_LONG).show();
         } else {
             Log.i(TAG, "endGame: its a draw");
         }
