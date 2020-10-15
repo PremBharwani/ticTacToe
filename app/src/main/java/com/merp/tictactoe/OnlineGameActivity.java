@@ -1,6 +1,7 @@
 package com.merp.tictactoe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +60,13 @@ public class OnlineGameActivity extends AppCompatActivity {
     private DatabaseReference bStatus4;
     private DatabaseReference bStatus5;
     private DatabaseReference bStatus6;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainMenuActivity.class));
+    }
+
     private DatabaseReference bStatus7;
     private DatabaseReference bStatus8;
     private DatabaseReference bStatus9;
@@ -150,7 +158,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[0] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i1.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i1.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(1, playerOnesTurn)) {
                         endGame();
@@ -173,7 +181,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[1] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i2.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i2.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(2, playerOnesTurn)) {
                         endGame();
@@ -196,7 +204,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[2] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i3.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i3.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(3, playerOnesTurn)) {
                         endGame();
@@ -219,7 +227,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[3] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i4.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i4.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(4, playerOnesTurn)) {
                         endGame();
@@ -242,7 +250,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[4] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i5.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i5.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(5, playerOnesTurn)) {
                         endGame();
@@ -265,7 +273,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[5] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i6.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i6.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(6, playerOnesTurn)) {
                         endGame();
@@ -288,7 +296,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[6] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i7.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i7.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(7, playerOnesTurn)) {
                         endGame();
@@ -311,7 +319,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[7] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i8.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i8.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(8, playerOnesTurn)) {
                         endGame();
@@ -334,7 +342,7 @@ public class OnlineGameActivity extends AppCompatActivity {
                     } else if (x == 2) {
                         boxStatusLocal[8] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
-                        i9.setBackgroundResource(R.drawable.tic_tac_toe_xopng);
+                        i9.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(9, playerOnesTurn)) {
                         endGame();

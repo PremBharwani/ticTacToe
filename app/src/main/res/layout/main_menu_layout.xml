@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ticTacToeHeading"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
     <Button
         android:id="@+id/buttonPlayOnline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
         android:onClick="menuPlayOnlineClicked"
+        android:padding="10sp"
         android:text="Play Online"
+        android:textAllCaps="false"
+        android:textColor="#a3fffc"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -20,8 +26,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
         android:onClick="clickPlayWithFriendOffline"
+        android:padding="10sp"
         android:text="Play offline with Friend"
+        android:textAllCaps="false"
+        android:textColor="#08fffb"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonPlayOnline" />
@@ -31,7 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
+        android:padding="10sp"
         android:text="Play offline with Computer"
+        android:textAllCaps="false"
+        android:textColor="#08fffb"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonPlayOfflineFriends" />
@@ -41,10 +55,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
+        android:padding="10sp"
         android:text="How to play?"
+        android:textAllCaps="false"
+        android:textColor="#08fffb"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonPlayOfflineCpu" />
+
+
+    <TextView
+        android:id="@+id/titleText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:shadowColor="#00FFFB"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="35"
+        android:text="Tic "
+        android:textAllCaps="true"
+        android:textColor="#00FFFB"
+        android:textSize="50sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@id/titleText2"
+        app:layout_constraintEnd_toStartOf="@id/vericalguideline1"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/hortizontalGuidelineForTitle" />
+
+    <TextView
+        android:id="@+id/titleText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:shadowColor="#00FFFB"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="35"
+        android:text="Tac "
+        android:textAllCaps="true"
+        android:textColor="#00FFFB"
+        android:textSize="50sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintEnd_toStartOf="@id/vericalguideline2"
+        app:layout_constraintStart_toStartOf="@id/vericalguideline1"
+        app:layout_constraintTop_toTopOf="@id/hortizontalGuidelineForTitle" />
+
+    <TextView
+        android:id="@+id/titleText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:shadowColor="#00FFFB"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="35"
+        android:text="Toe "
+        android:textAllCaps="true"
+        android:textColor="#00FFFB"
+        android:textSize="50sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/vericalguideline2"
+        app:layout_constraintTop_toBottomOf="@id/titleText2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -52,5 +129,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vericalguideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vericalguideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hortizontalGuidelineForTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

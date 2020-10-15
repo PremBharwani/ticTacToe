@@ -67,7 +67,7 @@ public class InGameActivity extends AppCompatActivity {
                 //playerTwo did the click
                 Log.i(TAG, "clickedBox: playerTwo clicked " + clickedElement);
                 boxStatus[clickedElement - 1] = 1;
-                box.setImageResource(R.drawable.tic_tac_toe_xopng);
+                box.setImageResource(R.drawable.tic_tac_toe_o);
                 if (checkWin(clickedElement, turnPlayerOne)) {
                     endGame();
                 }
