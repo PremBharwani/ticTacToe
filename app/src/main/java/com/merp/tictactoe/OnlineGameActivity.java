@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OnlineGameActivity extends AppCompatActivity {
 
-    private int[] boxStatusLocal = {-1, -1, -1, -1, -1, -1, -1, -1, -1};  //this is being maintained to check if a player won
+    int[] boxStatusLocal = new int[9];  //this is being maintained to check if a player won
     private int gameWinner = -1;//storing locally and then we'll use this to declare the winner or declare draw
     private boolean hasAWinner = false;
     private boolean playerOnesTurn = true;
@@ -34,7 +34,6 @@ public class OnlineGameActivity extends AppCompatActivity {
     int thisPlayersTurn;
     int chances;
     int clickedBoxStatus;
-    boolean gotThisPlayersTurn = false;
     TextView statusText;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
@@ -65,6 +64,7 @@ public class OnlineGameActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, MainMenuActivity.class));
+        finish();
     }
 
     private DatabaseReference bStatus7;
@@ -74,6 +74,7 @@ public class OnlineGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate called");
         setContentView(R.layout.online_game_layout);
         mAuth = FirebaseAuth.getInstance();
         mContext = this;
@@ -94,6 +95,14 @@ public class OnlineGameActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i(TAG, "onStart: on start called");
+        hasAWinner = false;//resetting that theres no winner
+        thisPlayersTurn = 1;//resetting the playersTurn to player1
+        Log.i(TAG, "onStart: RESETTING BOX STATUS LOCAL");
+        for (int i = 0; i < 9; i++) {//resetting the boxStatusLocal
+            boxStatusLocal[i] = -1;
+            Log.i(TAG, "onStart: value of " + i + " after reset " + boxStatusLocal[i]);
+        }
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "Failed to authorise ", Toast.LENGTH_SHORT).show();
@@ -143,6 +152,29 @@ public class OnlineGameActivity extends AppCompatActivity {
             bStatus9 = database.getReference("/BoxStatus/9");
             //
 
+
+            //setting the value of boolean variable playerOnesTurn ( which helps in checking whos the winner )
+            whichPlayersTurnRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int whichPlayersTurnCheck = Integer.parseInt(snapshot.getValue().toString());
+                    if (whichPlayersTurnCheck == 1) {
+                        playerOnesTurn = true;
+                        Log.i(TAG, "onDataChange: playerOnesTurn set to TRUE");
+                    } else {
+                        playerOnesTurn = false;
+                        Log.i(TAG, "onDataChange: playerOnesTurn set to FALSE");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            //
+
+
             //these will look for the change and if theres any update the ui
             //also when we're calling checKWin function , i used playerOnesTurn to true always bc i hadnt initialsed it ,
             //so check how to solve that , only then will we know whos the winner , otherwise no
@@ -161,6 +193,10 @@ public class OnlineGameActivity extends AppCompatActivity {
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_o);
                     }
                     if (checkWin(1, playerOnesTurn)) {
+                        Log.i(TAG, "onDataChange: checkWin called with playerOnesTurn=" + playerOnesTurn + " and local box stattus is ");
+                        for (int i = 0; i < 9; i++) {
+                            Log.i(TAG, "" + boxStatusLocal[i]);
+                        }
                         endGame();
                     }
                 }
@@ -359,12 +395,13 @@ public class OnlineGameActivity extends AppCompatActivity {
             //
 
 
+
         }
     }
 
     public void clickedBoxOnline(View view) {
 
-        gotThisPlayersTurn = false;
+
         final ImageView box = (ImageView) view;
         final int boxClicked = Integer.parseInt(box.getTag().toString());
 
@@ -388,13 +425,7 @@ public class OnlineGameActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 thisPlayersTurn = Integer.parseInt(snapshot.getValue().toString());
 
-                if (thisPlayersTurn == 1) {
-                    playerOnesTurn = true;
-                } else {
-                    playerOnesTurn = false;
-                }
 
-                gotThisPlayersTurn = true;
                 Log.i(TAG, "onCancelled: thisPlayersTurn set to " + thisPlayersTurn);
 
                 if (playerId == thisPlayersTurn) {//to check if its the players turn
@@ -462,11 +493,11 @@ public class OnlineGameActivity extends AppCompatActivity {
     boolean checkWin(int boxChanged, boolean playerOnesTurn) {
 
         int winningMaterial = -1; // winning material is just the value that should be found in boxStatus i.e either x or o
-        int player = -1; // 1:player one(x)    2:player two(o)
-        if (playerId == 1) {
+        int player; // 1:player one(x)    2:player two(o)
+        if (playerOnesTurn) {
             winningMaterial = 1;
             player = 1;
-        } else if (playerId == 2) {
+        } else {
             winningMaterial = 2;
             player = 2;
         }
@@ -542,12 +573,18 @@ public class OnlineGameActivity extends AppCompatActivity {
 
     public void endGame() {
         if (hasAWinner) {
-            Log.i(TAG, "endGame: Player " + thisPlayersTurn + " WINS!");
-            Toast.makeText(this, "Game Over ! Player " + thisPlayersTurn + " WINS!", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "endGame: Player " + gameWinner + " WINS!");
+            Toast.makeText(this, "Game Over ! Player " + gameWinner + " WINS!", Toast.LENGTH_LONG).show();
         } else {
             Log.i(TAG, "endGame: its a draw");
         }
     }
+
+
+    //enter the below logic to set playerOnesTurn value
+
+
+    //
 
 
 }

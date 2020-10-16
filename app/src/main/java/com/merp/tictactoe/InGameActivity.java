@@ -84,7 +84,7 @@ public class InGameActivity extends AppCompatActivity {
     }
 
     boolean checkWin(int boxChanged, boolean playerOnesTurn) {
-        boolean result;
+
         int winningMaterial = -1; // winning material is just the value that should be found in boxStatus i.e either x or o
         int player = -1; // 0:player one(x)    1:player two(o)
         if (playerOnesTurn) {
