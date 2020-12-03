@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".OnlineGameActivity" />
+        <activity android:name=".OnlineGameActivityV2" />
         <activity android:name=".LoginScreenActivity" />
     </application>
 

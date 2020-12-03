@@ -52,7 +52,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) { //if the user is already signed in , allowing him to directly go to the game screen
             Log.i(TAG, "in login activity : FirebaseUser object is NOT null , so we're skipping login");
-            startActivity(new Intent(mContext, OnlineGameActivity.class));
+
 
             db = FirebaseDatabase.getInstance();
             b1 = db.getReference("/BoxStatus/1");
@@ -70,6 +70,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             winr = db.getReference("/winner");
 
             resetFirebaseData();
+
         }
     }
 
@@ -113,6 +114,8 @@ public class LoginScreenActivity extends AppCompatActivity {
         chanceLeft.setValue(9);
         gOver.setValue(false);
         winr.setValue(-1);
+        Log.i(TAG, "resetFirebaseData: login activity reseted firebase");
+        startActivity(new Intent(mContext, OnlineGameActivity.class));
     }
 
 }

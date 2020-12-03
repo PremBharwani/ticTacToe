@@ -21,4 +21,8 @@ public class MainMenuActivity extends AppCompatActivity {
     public void menuPlayOnlineClicked(View view) {
         startActivity(new Intent(this, LoginScreenActivity.class));
     }
+
+    public void menuPlayOnlineClickedV2(View view) {
+        startActivity(new Intent(this, OnlineGameActivityV2.class));
+    }
 }

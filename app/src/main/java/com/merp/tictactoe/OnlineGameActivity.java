@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OnlineGameActivity extends AppCompatActivity {
 
-    int[] boxStatusLocal = new int[9];  //this is being maintained to check if a player won
     private int gameWinner = -1;//storing locally and then we'll use this to declare the winner or declare draw
     private boolean hasAWinner = false;
     private boolean playerOnesTurn = true;
@@ -38,6 +37,7 @@ public class OnlineGameActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference boxStatusRef;
+    private DatabaseReference topBoxStatusRef;
     private DatabaseReference whichPlayersTurnRef;
     private DatabaseReference gameOverRef;
     private DatabaseReference winnerRef;
@@ -60,16 +60,18 @@ public class OnlineGameActivity extends AppCompatActivity {
     private DatabaseReference bStatus5;
     private DatabaseReference bStatus6;
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainMenuActivity.class));
-        finish();
-    }
 
     private DatabaseReference bStatus7;
     private DatabaseReference bStatus8;
     private DatabaseReference bStatus9;
+
+    @Override
+    public void onBackPressed() {
+        Log.i(TAG, "onBackPressed: pressed");
+        super.onBackPressed();
+        startActivity(new Intent(this, MainMenuActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class OnlineGameActivity extends AppCompatActivity {
         i8 = findViewById(R.id.imageView8Online);
         i9 = findViewById(R.id.imageView9Online);
 
+
     }
 
     @Override
@@ -99,10 +102,7 @@ public class OnlineGameActivity extends AppCompatActivity {
         hasAWinner = false;//resetting that theres no winner
         thisPlayersTurn = 1;//resetting the playersTurn to player1
         Log.i(TAG, "onStart: RESETTING BOX STATUS LOCAL");
-        for (int i = 0; i < 9; i++) {//resetting the boxStatusLocal
-            boxStatusLocal[i] = -1;
-            Log.i(TAG, "onStart: value of " + i + " after reset " + boxStatusLocal[i]);
-        }
+
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "Failed to authorise ", Toast.LENGTH_SHORT).show();
@@ -141,6 +141,7 @@ public class OnlineGameActivity extends AppCompatActivity {
             //checking if individual boxstatus is updated and if yes then update the ui
 
             //setting the db refrences
+            topBoxStatusRef = database.getReference("/BoxStatus");
             bStatus1 = database.getReference("/BoxStatus/1");
             bStatus2 = database.getReference("/BoxStatus/2");
             bStatus3 = database.getReference("/BoxStatus/3");
@@ -184,19 +185,18 @@ public class OnlineGameActivity extends AppCompatActivity {
 
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[0] = 1;
+                        Log.i(TAG, "onDataChange: changed box boxStatusLocal1 to 1");
                         Log.i(TAG, "onDataChange: change image to  x");
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[0] = 2;
+                        Log.i(TAG, "onDataChange: changed box boxStatusLocal1 to 2");
                         Log.i(TAG, "onDataChange: change image to O");
                         i1.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i1.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(1, playerOnesTurn)) {
                         Log.i(TAG, "onDataChange: checkWin called with playerOnesTurn=" + playerOnesTurn + " and local box stattus is ");
-                        for (int i = 0; i < 9; i++) {
-                            Log.i(TAG, "" + boxStatusLocal[i]);
-                        }
                         endGame();
                     }
                 }
@@ -211,13 +211,15 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[1] = 1;
+                        Log.i(TAG, "onDataChange: changed box boxStatusLocal2 to 1");
                         Log.i(TAG, "onDataChange: change image to  x");
                         i2.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[1] = 2;
+                        Log.i(TAG, "onDataChange: changed box boxStatusLocal2 to 2");
                         Log.i(TAG, "onDataChange: change image to O");
                         i2.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i2.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(2, playerOnesTurn)) {
                         endGame();
@@ -234,13 +236,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[2] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i3.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[2] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i3.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i3.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(3, playerOnesTurn)) {
                         endGame();
@@ -257,13 +259,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[3] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i4.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[3] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i4.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i4.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(4, playerOnesTurn)) {
                         endGame();
@@ -280,13 +282,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[4] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i5.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[4] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i5.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i5.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(5, playerOnesTurn)) {
                         endGame();
@@ -303,13 +305,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[5] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i6.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[5] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i6.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i6.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(6, playerOnesTurn)) {
                         endGame();
@@ -326,13 +328,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[6] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i7.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[6] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i7.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i7.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(7, playerOnesTurn)) {
                         endGame();
@@ -349,13 +351,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[7] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i8.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[7] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i8.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i8.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(8, playerOnesTurn)) {
                         endGame();
@@ -372,13 +374,13 @@ public class OnlineGameActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int x = Integer.parseInt(snapshot.getValue().toString());
                     if (x == 1) {
-                        boxStatusLocal[8] = 1;
                         Log.i(TAG, "onDataChange: change image to  x");
                         i9.setBackgroundResource(R.drawable.tic_tac_toe_x);
                     } else if (x == 2) {
-                        boxStatusLocal[8] = 2;
                         Log.i(TAG, "onDataChange: change image to O");
                         i9.setBackgroundResource(R.drawable.tic_tac_toe_o);
+                    } else if (x == -1) {
+                        i9.setBackgroundResource(android.R.color.transparent);
                     }
                     if (checkWin(9, playerOnesTurn)) {
                         endGame();
@@ -393,7 +395,6 @@ public class OnlineGameActivity extends AppCompatActivity {
             //
 
             //
-
 
 
         }
@@ -502,6 +503,23 @@ public class OnlineGameActivity extends AppCompatActivity {
             player = 2;
         }
 
+        //trying this : lets just create an offline copy right now
+        Log.i(TAG, "checkWin: get a copy of firebase db into an array nw ");
+
+        final int[] boxStatusLocal = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
+        topBoxStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pushToArray(snapshot.getValue().toString(), boxStatusLocal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         //check rows
         if (boxChanged == 1 || boxChanged == 2 || boxChanged == 3) {
             //check first row
@@ -575,16 +593,28 @@ public class OnlineGameActivity extends AppCompatActivity {
         if (hasAWinner) {
             Log.i(TAG, "endGame: Player " + gameWinner + " WINS!");
             Toast.makeText(this, "Game Over ! Player " + gameWinner + " WINS!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MainMenuActivity.class));
+            finish();
         } else {
             Log.i(TAG, "endGame: its a draw");
+            startActivity(new Intent(this, MainMenuActivity.class));
+            finish();
         }
     }
 
 
-    //enter the below logic to set playerOnesTurn value
+    public void pushToArray(String s, int[] array) {
+        //convert this string to array format
+        int arrayCtr = -1;
+        for (int i = 5; i < s.length(); i++) {
+            Log.i(TAG, "pushToArray: found " + s.charAt(i));
+            StringBuilder stringBuilder;
+            if (s.charAt(i) == ',') {
+                arrayCtr++;
+            }
 
-
-    //
+        }
+    }
 
 
 }
