@@ -23,15 +23,15 @@ public class InGameActivity extends AppCompatActivity {
 
     int[] boxStatus = {-1, -1, -1, -1, -1, -1, -1, -1, -1};// (-1:not occupied) ; ( 0 : occupied by x) ; (1: occupied by O)
     int winner = -1;
-    int turnsLeft = 9;
+    int turnsLeft = 9; //keeps track of number of turns left
     boolean hasAWinner = false;
     int clickedElement;
-    boolean turnPlayerOne = true;
+    boolean turnPlayerOne = true; //variable that keeps track of whose turn it is .
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);//link
         Log.i(TAG, "onCreate: Oncreate called");
         b1 = findViewById(R.id.imageView1);
         b2 = findViewById(R.id.imageView2);
@@ -44,13 +44,14 @@ public class InGameActivity extends AppCompatActivity {
         b9 = findViewById(R.id.imageView9);
         statusText = findViewById(R.id.statusTextView);
 
-    }
+    }    //Executes first
 
     public void clickedBox(View view) {
 
         ImageView box = (ImageView) view;
         String x = box.getTag().toString();
         clickedElement = Integer.parseInt(x); //getting value from 1-9 (take care while using in arrays)
+
         if (boxStatus[clickedElement - 1] == -1) {
             //fresh box
             turnsLeft--;
@@ -58,16 +59,16 @@ public class InGameActivity extends AppCompatActivity {
                 //playerOne did the click
                 Log.i(TAG, "clickedBox: playerOne clicked " + clickedElement);
                 boxStatus[clickedElement - 1] = 0;
-                box.setImageResource(R.drawable.tic_tac_toe_x);
+                box.setImageResource(R.drawable.tic_tac_toe_x); //change the image to x
                 if (checkWin(clickedElement, turnPlayerOne)) {
                     endGame();
-                }
+                } //this basically checks if the game has ended
                 turnPlayerOne = false;
             } else {
                 //playerTwo did the click
                 Log.i(TAG, "clickedBox: playerTwo clicked " + clickedElement);
                 boxStatus[clickedElement - 1] = 1;
-                box.setImageResource(R.drawable.tic_tac_toe_o);
+                box.setImageResource(R.drawable.tic_tac_toe_o); //change image to 'o'
                 if (checkWin(clickedElement, turnPlayerOne)) {
                     endGame();
                 }
@@ -81,7 +82,7 @@ public class InGameActivity extends AppCompatActivity {
             Toast.makeText(this, "Already filled", Toast.LENGTH_SHORT).show();
         }
 
-    }
+    }      // And also checks for any clicks . Checks for the status of the boxes .
 
     boolean checkWin(int boxChanged, boolean playerOnesTurn) {
 
@@ -162,7 +163,7 @@ public class InGameActivity extends AppCompatActivity {
         }
 
         return false;
-    }
+    }   //checks the logic/whatever (Brains)
 
     void endGame() {
         statusText.setText("GAME OVER !");
@@ -194,5 +195,5 @@ public class InGameActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
+    }   //Ends game
 }

@@ -14,7 +14,7 @@
         android:background="@drawable/custom_button"
         android:onClick="menuPlayOnlineClicked"
         android:padding="10sp"
-        android:text="Play Online"
+        android:text="@string/button_1_text"
         android:textAllCaps="false"
         android:textColor="#a3fffc"
         app:layout_constraintLeft_toLeftOf="parent"
